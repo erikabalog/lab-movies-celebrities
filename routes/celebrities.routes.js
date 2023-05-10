@@ -29,9 +29,22 @@ router.get("/celebrities/create", (req, res, next) => {
   });
 
   router.get("/celebrities", (req, res, next) => {
-    res.render("celebrities/celebrities");
-  });
+    Celebrity.find() //buscamos em nuestra base de datos 
+    .then((results)=>{
+      const celebrityResults= {results} //transform array in obj
+      console.log(celebrityResults)
+      return celebrityResults;
 
+    })
+    .then(celebResults=>{
+      res.render("celebrities/celebrities", celebResults);
+    })
 
+    .catch(err=> {
+      next(err)
+    })
+  })
+
+   
 
 module.exports = router;
